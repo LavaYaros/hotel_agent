@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  db:
+    image: pgvector/pgvector:pg16        # PostgreSQL 16 with pgvector pre-installed
+    container_name: hotel-db
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER:     ${DB_USER}
+      POSTGRES_DB:       ${DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data   # keeps data between restarts
+      - ./hotel.dump:/docker-entrypoint-initdb.d/hotel.dump:ro  # initial database dump
+      - ./init/:/docker-entrypoint-initdb.d/:ro # initialization scripts
