@@ -10,5 +10,5 @@ python -m venv .venv
 .\.venv\Scripts\activate      # Windows 11
 pip install -r requirements.txt
 
-# 3. Run a demo script
+# 3. Run the main script
 python src\main.py
