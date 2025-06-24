@@ -3,7 +3,7 @@ Minimal console-based hotel assistant.
 """
 
 import json, openai, os, sys
-from src.agent_core_gpt_4o_mini import find_rooms
+from agent_core_gpt_4o_mini import find_rooms
 
 from dotenv import load_dotenv
 
