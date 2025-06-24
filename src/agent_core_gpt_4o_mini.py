@@ -62,8 +62,3 @@ def find_rooms(*, user_text: str,
         with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
             cur.execute(sql, [vec_pg] + params + [vec_pg])
             return cur.fetchall()      # list[RealDictRow] → behaves like dict
-
-# quick sanity-check
-if __name__ == "__main__":
-    rooms = find_rooms(user_text="cozy room with pool access around 70$", pool_required=True, max_price=70)
-    print(json.dumps(rooms, indent=2, ensure_ascii=False, default=str))
