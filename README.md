@@ -1,14 +1,14 @@
 ## Quick start
 
 ```bash
-# 1. Start fresh DB with sample data
-docker compose down -v       # remove old volume
-docker compose up -d         # restores hotel.dump
+# 0. Clone and add secrets
+git clone https://github.com/<you>/hotel_agent.git
+cd hotel_agent
+copy .env.example .env         # fill DB_USER, DB_PASSWORD, OPENAI_API_KEY, …
 
-# 2. Set up Python env
-python -m venv .venv
-.\.venv\Scripts\activate      # Windows 11
-pip install -r requirements.txt
+# 1. Bring up PostgreSQL with sample data
+docker compose down -v         # optional: wipe old volume
+docker compose up -d           # loads init/hotel.dump automatically
 
-# 3. Run the main script
-python src\main.py
+# (Option A) Run the bot inside its container
+docker compose run --rm -it agent     # starts src/chat_agent_gpt_4o_mini.py
