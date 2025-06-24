@@ -11,5 +11,21 @@ services:
       - "5432:5432"
     volumes:
       - ./pgdata:/var/lib/postgresql/data   # keeps data between restarts
-      - ./hotel.dump:/docker-entrypoint-initdb.d/hotel.dump:ro  # initial database dump
-      - ./init/:/docker-entrypoint-initdb.d/:ro # initialization scripts
+      - ./init:/docker-entrypoint-initdb.d       # dump + SQL scripts
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      retries: 5
+
+  agent:
+    build: .
+    env_file: .env
+    environment:
+      PGHOST: db
+    depends_on:
+      db:
+        condition: service_healthy
+    profiles: ["dev"]
+
+volumes:
+  db_data:  # ensures that Postgres data survives container rebuilds
