@@ -53,6 +53,7 @@ while True:
         sys.exit()
 
     if user.lower() in {"quit", "exit", "bye"}:
+        print("HotelBot: Safe travels—hope to host you soon!")
         break
 
     messages.append({"role": "user", "content": user})
